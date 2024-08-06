@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    width: 250px;
+    padding: 10px;
+  }
+  
+  input[type="text"], input[type="color"] {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .tab {
+    overflow: hidden;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .tab button {
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px;
+    transition: 0.3s;
+  }
+  
+  .tab button:hover {
+    background-color: #ddd;
+  }
+  
+  .tab button.active {
+    background-color: #ccc;
+  }
+  
+  .tabcontent {
+    display: none;
+    padding: 10px;
+  }
+  
+  .tabcontent.active {
+    display: block;
+  }
+  
+  #url-list li {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .editable-input {
+    width: 60%;
+  }
+  
+  .edit-buttons {
+    display: flex;
+    gap: 5px;
+  }
+  

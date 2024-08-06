@@ -1,0 +1,27 @@
+{
+    "manifest_version": 3,
+    "name": "Color Tabs by URL",
+    "version": "1.0",
+    "description": "Change the color of tabs based on URL",
+    "permissions": [
+      "tabs",
+      "storage"
+    ],
+    "background": {
+      "service_worker": "js/background/background.js"
+    },
+    "action": {
+      "default_popup": "html/popup/popup.html",
+      "default_icon": {
+        "16": "images/icon.png",
+        "48": "images/icon.png",
+        "128": "images/icon.png"
+      }
+    },
+    "icons": {
+      "16": "images/icon.png",
+      "48": "images/icon.png",
+      "128": "images/icon.png"
+    }
+  }
+  

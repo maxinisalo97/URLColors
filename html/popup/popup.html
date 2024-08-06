@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="../../styles/popup/styles.css">
+</head>
+<body>
+  <div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'New')">New</button>
+    <button class="tablinks" onclick="openTab(event, 'Stored')">Stored</button>
+  </div>
+
+  <div id="New" class="tabcontent">
+    <h3>Add New URL</h3>
+    <input type="text" id="new-url" placeholder="Enter URL" />
+    <input type="color" id="new-color" />
+    <button id="save-new">Save</button>
+  </div>
+
+  <div id="Stored" class="tabcontent">
+    <h3>Stored URLs</h3>
+    <ul id="url-list"></ul>
+  </div>
+
+  <script src="../../js/popup/popup.js"></script>
+</body>
+</html>
