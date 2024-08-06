@@ -1,17 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('save-new').addEventListener('click', saveNewUrl);
+    document.getElementById('tab-new').addEventListener('click', (event) => openTab(event, 'New'));
+    document.getElementById('tab-stored').addEventListener('click', (event) => openTab(event, 'Stored'));
+    
     loadStoredUrls();
-  
-    // Tab functionality
-    document.querySelectorAll('.tablinks').forEach(button => {
-      button.addEventListener('click', (event) => {
-        const tabName = event.currentTarget.textContent;
-        openTab(event, tabName);
-      });
-    });
-  
-    // Open first tab by default
-    document.querySelector('.tablinks').click();
+    document.getElementById('tab-new').click();
   });
   
   function saveNewUrl() {
@@ -25,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chrome.storage.sync.set({ urls: urls }, () => {
           alert('URL and color saved!');
           loadStoredUrls();
+          openTab(null, 'Stored');
         });
       });
     }
@@ -46,21 +40,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const colorInput = document.createElement('input');
         colorInput.type = 'color';
         colorInput.value = item.color;
-        colorInput.className = 'editable-input';
         listItem.appendChild(colorInput);
   
-        const editButton = document.createElement('button');
-        editButton.textContent = '✔';
-        editButton.className = 'edit-buttons';
-        editButton.addEventListener('click', () => updateColor(index, colorInput.value));
-        listItem.appendChild(editButton);
+        const editButtons = document.createElement('div');
+        editButtons.className = 'edit-buttons';
+  
+        const saveButton = document.createElement('button');
+        saveButton.textContent = '✔';
+        saveButton.className = 'save-btn';
+        saveButton.addEventListener('click', () => updateColor(index, colorInput.value));
+        editButtons.appendChild(saveButton);
   
         const deleteButton = document.createElement('button');
         deleteButton.textContent = '✖';
-        deleteButton.className = 'edit-buttons';
+        deleteButton.className = 'delete-btn';
         deleteButton.addEventListener('click', () => deleteUrl(index));
-        listItem.appendChild(deleteButton);
+        editButtons.appendChild(deleteButton);
   
+        listItem.appendChild(editButtons);
         urlList.appendChild(listItem);
       });
     });
@@ -100,6 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   
     document.getElementById(tabName).style.display = 'block';
-    evt.currentTarget.className += ' active';
+    if (evt) {
+      evt.currentTarget.className += ' active';
+    }
   }
   

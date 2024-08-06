@@ -2,15 +2,22 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status === 'complete') {
       chrome.storage.sync.get(['urls'], (result) => {
         const urls = result.urls || [];
-        for (const item of urls) {
-          if (tab.url.startsWith(item.url)) {
+        urls.forEach(item => {
+          if (tab.url.includes(item.url)) {
             chrome.scripting.insertCSS({
               target: { tabId: tab.id },
-              css: `body { background-color: ${item.color} !important; }`
+              files: ['styles/tab/tab.css']
+            }, () => {
+              chrome.scripting.executeScript({
+                target: { tabId: tab.id },
+                func: (color) => {
+                  document.body.style.backgroundColor = color;
+                },
+                args: [item.color]
+              });
             });
-            break;
           }
-        }
+        });
       });
     }
   });
@@ -20,15 +27,22 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
       const updatedUrls = changes.urls.newValue || [];
       chrome.tabs.query({}, (tabs) => {
         tabs.forEach((tab) => {
-          for (const item of updatedUrls) {
-            if (tab.url.startsWith(item.url)) {
+          updatedUrls.forEach(item => {
+            if (tab.url.includes(item.url)) {
               chrome.scripting.insertCSS({
                 target: { tabId: tab.id },
-                css: `body { background-color: ${item.color} !important; }`
+                files: ['styles/tab/tab.css']
+              }, () => {
+                chrome.scripting.executeScript({
+                  target: { tabId: tab.id },
+                  func: (color) => {
+                    document.body.style.backgroundColor = color;
+                  },
+                  args: [item.color]
+                });
               });
-              break;
             }
-          }
+          });
         });
       });
     }
